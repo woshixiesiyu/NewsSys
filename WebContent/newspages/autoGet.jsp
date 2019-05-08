@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>添加主题--管理后台</title>
+<title>自动获取新闻源</title>
 <link href="../css/admin.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -20,7 +20,7 @@
   <div id="channel"> </div>
 </div>
 <div id="main">
-  <div id="opt_list">
+<div id="opt_list">
   <ul>
     <li><a href="../util/news?opr=toAddNews">添加新闻</a></li>
     <li><a href="../util/news?opr=list">编辑新闻</a></li>
@@ -31,7 +31,7 @@
 </div>
   <div id="opt_area">
     <h1 id="opt_type"> 手动添加新闻： </h1>
-    <form action="../util/news?opr=addNews" method="post" enctype="multipart/form-data">
+    <form action="../util/news?opr=autoAddNews" method="post" >
       <p>
         <label> 主题 </label>
         <select name="ntid">
@@ -41,27 +41,7 @@
           </c:forEach>
         </select>
       </p>
-      <p>
-        <label> 标题 </label>
-        <input name="ntitle" type="text" class="opt_input" />
-      </p>
-      <p>
-        <label> 作者 </label>
-        <input name="nauthor" type="text" class="opt_input" />
-      </p>
-      <p>
-        <label> 摘要 </label>
-        <textarea name="nsummary" cols="40" rows="3"></textarea>
-      </p>
-      <p>
-        <label> 内容 </label>
-        <textarea name="ncontent" cols="70" rows="10"></textarea>
-      </p>
-      <p>
-        <label> 上传图片 </label>
-        <input name="file" type="file" class="opt_input" />
-      </p>
-      <input type="submit" value="提交" class="opt_sub" />
+      <input type="submit" value="点击获取" class="opt_sub" />
       <input type="reset" value="重置" class="opt_sub" />
     </form>
   </div>

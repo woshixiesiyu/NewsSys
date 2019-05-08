@@ -66,6 +66,22 @@ public static void main(String[] args) throws IOException, JSONException, SQLExc
 
 // 请求示例 url 默认请求参数已经做URL编码
 String url = "http://api01.idataapi.cn:8000/news/toutiao?apikey=zw7a8Msjgw7i6jY3iWan0t3Tu09dfVB4Or6pbqh3ic9IYvenqgqIt23cFqE9gnIZ&catid=news_military&contentType=3&pageToken=0";
+//String s="http://api01.idataapi.cn:8000/news/toutiao?apikey=zw7a8Msjgw7i6jY3iWan0t3Tu09dfVB4Or6pbqh3ic9IYvenqgqIt23cFqE9gnIZ&catid=news_world&contentType=3&pageToken=0";
+//String url=new String(s.getBytes("UTF-8"),"ISO-8859-1");
+
+
+//String iso8859 = new String(sb.toString().getBytes("iso8859-1"));
+//String gbk = new String(sb.toString().getBytes("gbk"));
+//String utf8 = new String(sb.toString().getBytes("utf-8"));
+//if(iso8859.equals(sb.toString())){
+//    System.out.println("iso8859");
+//}else  if(gbk.equals(sb.toString())){
+//    System.out.println("gbk");
+//}else  if(utf8.equals(sb.toString())){
+//    System.out.println("utf8");
+//}
+
+
 JSONObject json = getRequestFromUrl(url);;
 JSONArray array=json.getJSONArray("data");
 NewsServiceImpl newsServiceImpl=new NewsServiceImpl();

@@ -89,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <c:forEach items="${requestScope.list4}" var="news" varStatus="i">
             <li>
             <a href='util/news?opr=readNew&nid=${news.nid}'>${news.ntitle}</a>
-            <span><fmt:formatDate value="${news.ncreatedate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+            <span style="right:1px;"><fmt:formatDate value="${news.ncreatedate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
             </li>
             <c:if test="${i.count % 5 == 0}"><li class='space'></li></c:if>
           </c:forEach>

@@ -191,7 +191,34 @@ public class NewsServlet extends HttpServlet {
                             + "/util/news?opr=toModifyNews&nid=" + nid + "\";");
                     out.print("</script>");
                 }
-            } else if (opr.equals("addNews") || opr.equals("modifyNews")) { // 添加或修改新闻
+            } 
+            else if(opr.equals("autoAddNews")) {
+            	String tid=request.getParameter("ntid");
+            	String catid[]= {"news_society","news_world","news_military","news_sports","news_entertainment",
+            			"news_fashion","news_finance","news_tech","news_health",
+            			"news_car","news_edu","news_house","news_home","news_travel",
+            			"news_culture","funny","news_history","news_food","movie",
+            			"news_game","news_comic","emotion"
+            	};
+              
+            	System.out.println(tid);
+            	int ntid=Integer.parseInt(tid);
+            	for(int i=0;i<catid.length;i++) {
+            		if(ntid==i) {
+            			NewsServiceImpl newsAutoSevice=new NewsServiceImpl();
+            			newsAutoSevice.autoGetNews(catid[i]);
+            		}
+            	}
+            	
+            }  
+            else if(opr.equals("autoGet")) {
+            	System.out.println("autoget'");
+            	request.setAttribute("topics", topicService.findAllTopics());
+                request.getRequestDispatcher("/newspages/autoGet.jsp")
+                        .forward(request, response);
+            }
+            
+            else if (opr.equals("addNews") || opr.equals("modifyNews")) { // 添加或修改新闻
                 News news = new News();
                 String nid = request.getParameter("nid");
                 if (nid != null && (nid = nid.trim()).length() > 0)
@@ -338,6 +365,8 @@ public class NewsServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        
         out.flush();
         out.close();
     }

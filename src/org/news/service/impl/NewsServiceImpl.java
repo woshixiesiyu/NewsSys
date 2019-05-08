@@ -1,5 +1,14 @@
 package org.news.service.impl;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,6 +25,9 @@ import org.news.entity.News;
 import org.news.service.NewsService;
 import org.news.util.DatabaseUtil;
 import org.news.util.Page;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 public class NewsServiceImpl implements NewsService {
 
@@ -229,4 +241,59 @@ public class NewsServiceImpl implements NewsService {
         }
         return result;
     }
+    
+    private String readAll(Reader rd) throws IOException {
+    	StringBuilder sb = new StringBuilder();
+    	int cp;
+    	while ((cp = rd.read()) != -1) {
+    	sb.append((char) cp);
+    	}
+    	return sb.toString();
+    	}
+    
+    public void autoGetNews(String catid) throws IOException {
+    	System.out.println(catid);
+    	String sbcatid=new String(catid.getBytes(),"utf-8");
+//    	String url = "http://api01.idataapi.cn:8000/news/toutiao?apikey=zw7a8Msjgw7i6jY3iWan0t3Tu09dfVB4Or6pbqh3ic9IYvenqgqIt23cFqE9gnIZ&catid="+catid+"&contentType=3&pageToken=0";
+    	String url = "http://api01.idataapi.cn:8000/news/toutiao?apikey=zw7a8Msjgw7i6jY3iWan0t3Tu09dfVB4Or6pbqh3ic9IYvenqgqIt23cFqE9gnIZ&catid="+sbcatid+"&contentType=3&pageToken=0";
+    	System.out.println(url);
+    	URL realUrl = new URL(url);
+    	URLConnection conn = realUrl.openConnection();
+    	InputStream instream = conn.getInputStream();
+    	try {
+    	BufferedReader rd = new BufferedReader(new InputStreamReader(instream, Charset.forName("UTF-8")));
+    	String jsonText = readAll(rd);
+    	JSONObject json = JSONObject.fromObject(jsonText);
+    	JSONArray array=json.getJSONArray("data");
+    	for(int i=0;i<array.size();i++) {
+    		News news=new News();	
+    		JSONObject jsonobj=array.getJSONObject(i);
+    		news.setNcreatedate(new Date());
+    		news.setNtid(3);
+    		news.setNauthor(jsonobj.getString("posterScreenName"));
+    		news.setNtitle(jsonobj.getString("title"));
+    		news.setNcontent(jsonobj.getString("content"));
+    		news.setNsummary(jsonobj.getString("title"));
+    		if(jsonobj.getJSONArray("imageUrls").isArray()) {
+    			JSONArray imgarr=jsonobj.getJSONArray("imageUrls");
+    			news.setNpicpath(imgarr.getString(0));
+    		}
+    		try {
+				addNews(news);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+    		
+    	}
+    	
+    	
+    	
+    	} finally {
+    	instream.close();
+    	}
+    	}
+    	
+   
+    
+    
 }
