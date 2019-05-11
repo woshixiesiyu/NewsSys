@@ -154,15 +154,13 @@ public class NewsServlet extends HttpServlet {
                 request.setAttribute("topics", topicService.findAllTopics());
                 request.getRequestDispatcher("/newspages/news_add.jsp")
                         .forward(request, response);
-            } else if (opr.equals("toModifyNews")) { // 查找所有主题和要修改的新闻
-                String nid = request.getParameter("nid");
-                News news = newsService.findNewsByNid(Integer.parseInt(nid));
-                news.setComments(commentsService.findCommentsByNid(Integer
-                        .parseInt(nid)));
-                request.setAttribute("news", news);
-                request.setAttribute("topics", topicService.findAllTopics());
-                request.getRequestDispatcher("/newspages/news_modify.jsp")
-                        .forward(request, response);
+			} else if (opr.equals("toModifyNews")) { // 查找所有主题和要修改的新闻
+				String nid = request.getParameter("nid");
+				News news = newsService.findNewsByNid(Integer.parseInt(nid));
+				news.setComments(commentsService.findCommentsByNid(Integer.parseInt(nid)));
+				request.setAttribute("news", news);
+				request.setAttribute("topics", topicService.findAllTopics());
+				request.getRequestDispatcher("/newspages/news_modify.jsp").forward(request, response);
             } else if (opr.equals("deleteComment")) { // 删除一条评论
                 String cid = request.getParameter("cid");
                 String nid = request.getParameter("nid");
@@ -203,12 +201,11 @@ public class NewsServlet extends HttpServlet {
               
             	System.out.println(tid);
             	int ntid=Integer.parseInt(tid);
-            	for(int i=0;i<catid.length;i++) {
-            		if(ntid==i) {
-            			NewsServiceImpl newsAutoSevice=new NewsServiceImpl();
-            			newsAutoSevice.autoGetNews(catid[i]);
-            		}
-            	}
+         
+            	NewsServiceImpl newsAutoSevice=new NewsServiceImpl();
+            	newsAutoSevice.autoGetNews(catid[ntid-1]);
+            	
+     
             	
             }  
             else if(opr.equals("autoGet")) {

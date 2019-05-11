@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body onload="focusOnLogin()">
   
 <div id="header">
-  <div id="top_login">
+<!--   <div id="top_login">
     <form action="util/user" method="post" onsubmit="return check()">
       <input type="hidden" name="opr" value="login"/>
       <label> 登录名 </label>
@@ -60,6 +60,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <label id="error"> </label>
     </form>
   </div>
+   -->
+ <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">新闻中国</a>
+    </div>
+    <div>
+        <form class="navbar-form navbar-left" role="search" action="util/user" method="post" onsubmit="return check()">
+        <input type="hidden" name="opr" value="login"/>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="用户名" name="uname">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="密码" name="upwd">
+            </div>
+            <button type="submit" class="btn btn-default">登录</button>
+        </form>
+
+    </div>
+    </div>
+</nav> 
   <div id="nav">
     <div id="logo"> <img src="images/logo.jpg" alt="新闻中国" /> </div>
     <!--mainnav end-->
