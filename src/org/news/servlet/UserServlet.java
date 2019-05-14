@@ -19,6 +19,7 @@ public class UserServlet extends HttpServlet {
             throws ServletException, IOException {
 
         response.setContentType("text/html;charset=UTF-8");
+        
         PrintWriter out = response.getWriter();
         String contextPath = request.getContextPath();
         String opr = request.getParameter("opr");
@@ -26,7 +27,7 @@ public class UserServlet extends HttpServlet {
         try {
 
             if ("login".equals(opr)) {
-
+            	request.setCharacterEncoding("UTF-8");
                 String uname = request.getParameter("uname");
                 String password = request.getParameter("upwd");
 
@@ -34,6 +35,7 @@ public class UserServlet extends HttpServlet {
                 user.setUname(uname);
                 user.setUpwd(password);
                 user = userService.doLogin(user);
+                System.out.println(uname+password);
                 if (user == null) {
                     out.print("<script type=\"text/javascript\">");
                     out.print("alert(\"用户名密码错误，请重新登录\");");
@@ -41,10 +43,31 @@ public class UserServlet extends HttpServlet {
                             + "/index.jsp\",\"_self\");");
                     out.print("</script>");
                 } else {
-                    request.getSession().setAttribute("admin", uname);
-                    response.sendRedirect(contextPath + "/util/news?opr=list");
+                	
+                	if(uname.equals("admin")) {
+                		
+                		request.getSession().setAttribute("admin", uname);
+                		response.sendRedirect(contextPath + "/util/news?opr=list");
+                		
+                	}
+                	else {
+                		request.getSession().setAttribute("username", uname);
+                		request.getRequestDispatcher("/index.jsp").forward(request, response);
+                		
+                	}
+                	
                 }
+          
+                
             }
+            
+            else if(opr.equals("logout")) {
+            	request.getSession().removeAttribute("username");
+            	request.getRequestDispatcher("/index.jsp").forward(request, response);
+            	
+            }
+            
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

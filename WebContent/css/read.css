@@ -6,10 +6,10 @@ table{ border-collapse:collapse;}
 img{ border:0;}
 li{ list-style:none;}
 
-a{ color:#335884; text-decoration:none;}
+a{text-decoration:none;}
 a:hover{ color:#f00; text-decoration:underline;}
 
-#header{ clear:both; position:relative; margin:0 auto; margin-top:15px; width:947px; height:116px; border:1px solid #dfdfdf; }
+#header{ clear:both; position:relative; margin:0 auto; margin-top:15px; width:947px; }
 	#top_login{ padding:6px 0 0 10px;}
 		.login_input{ height:19px; line-height:19px; width:118px; border:none; background:url(../images/login_input.gif) no-repeat; margin:0 14px 0 6px;}
 		.login_sub{ width:51px; height:19px; border:none; background:url(../images/login_sub.gif) no-repeat;}
@@ -28,17 +28,17 @@ a:hover{ color:#f00; text-decoration:underline;}
 		
 		
 #container{ clear:both; width:947px; height:100%; overflow:hidden; margin:14px auto 0;}
-	.sidebar{ float:left; width:157px;}
+	.sidebar{ float:left; width:157px;padding-top: 35px;}
 		.sidebar h1{ clear:both;}
-		.side_list{ height:250px;border:1px solid #dfdfdf;margin:2px 0 12px;}
+		.side_list{ height:250px;border:1px solid #dfdfdf;margin:2px 0 12px;margin-top: 15px}
 	.main{ float:right; width:787px;}
 		.class_type{ height:40px; padding:0 0 0 14px;}
 		.content{ float:right; width:787px; border-right:1px solid #eff0f4; margin:16px 0 0 10px;}
 			
 			.classlist{ clear:both; margin-top:10px;}
-			.classlist li{ position:relative; line-height:22px; background:url(../images/arrow.gif) no-repeat 0 10px; padding:0 130px 0 8px;}
+			.classlist li{ position:relative; line-height:22px; background:url(../images/arrow.gif) no-repeat 0 10px; padding:0 250px 0 8px;}
 			.classlist li.space{ background:none; height:22px;}
-			.classlist li span{ position:absolute; top:-1px; *top:-4px; right:16px;}
+			.classlist li span{ position:absolute; top:-1px; *top:-4px; right:10px;}
 		
 		
 	

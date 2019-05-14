@@ -31,9 +31,9 @@ a:hover{ color:#f00; text-decoration:underline;}
 		.opt_input{ margin-left:6px; border:1px solid #999; height:18px; line-height:18px; width:200px;}
 		.opt_sub{ height:25px; background:url(../images/opt_sub.gif) repeat-x; text-align:center; border:1px solid #ceced0; font:12px/25px Arial; padding:0 6px; letter-spacing:3px;}
 		.classlist{ clear:both; margin-top:10px;}
-			.classlist li{ position:relative; line-height:22px; background:url(../images/arrow.gif) no-repeat 0 10px; padding:0 130px 0 8px;}
+			.classlist li{ position:relative; line-height:22px; background:url(../images/arrow.gif) no-repeat 0 10px; padding:0 250px 0 8px;}
 			.classlist li.space{ background:none; height:22px;}
-			.classlist li span{ position:absolute; top:-1px; *top:-4px; right:16px;}
+			.classlist li span{ position:absolute; top:-1px; *top:-4px; right:10px;}
 #site_link{ clear:both; width:947px; margin:35px auto 0; background:#e3e3e3; border-top:2px #0c7eb2 solid; height:26px; line-height:28px; text-align:center;}
 #site_link a{ color:#000; text-decoration:none;}
 #site_link a:hover{ color:#f00; text-decoration:underline;}

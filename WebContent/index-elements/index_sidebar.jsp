@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
   <div class="sidebar">
-    <h3> 国内新闻 </h3>
+    <span class="label label-info"  style="font-size: 120%"> 国内新闻 </span>
     <div class="side_list">
       <ul>
       	<c:forEach items="${list1}" var="news">
@@ -10,7 +10,7 @@
       	</c:forEach>
       </ul>
     </div>
-    <h3> 国际新闻 </h3>
+    <span class="label label-info"  style="font-size: 120%"> 国际新闻 </span>
     <div class="side_list">
       <ul>
       	<c:forEach items="${list2}" var="news">
@@ -18,7 +18,7 @@
         </c:forEach>
       </ul>
     </div>
-    <h3> 娱乐新闻 </h3>
+    <span class="label label-info"  style="font-size: 120%"> 娱乐新闻 </span>
     <div class="side_list">
       <ul>
       	<c:forEach items="${list3}" var="news">

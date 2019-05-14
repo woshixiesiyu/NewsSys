@@ -12,6 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>新闻中国</title>
 <link href="css/read.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript">
 	  		function check(){
 	  			var cauthor = document.getElementById("cauthor");
@@ -29,28 +30,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <div id="header">
-  <div id="top_login">
-    <label> 登录名 </label>
-    <input type="text" id="uname" value="" class="login_input" />
-    <label> 密&#160;&#160;码 </label>
-    <input type="password" id="upwd" value="" class="login_input" />
-    <input type="button" class="login_sub" value="登录" onclick="login()"/>
-    <label id="error"> </label>
-    <a href="index.jsp" class="login_link">返回首页</a></div>
-  <div id="nav">
-    <div id="logo"> <img src="images/logo.jpg" alt="新闻中国" /> </div>
-    <!--mainnav end-->
-  </div>
+  
+  
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="http://localhost:8080/NewsSys/">新闻中国</a>
+    </div>
+    <div>
+    
+    <c:choose>
+      	<c:when test="${not empty sessionScope.username}">
+      		<div>
+        		<p class="navbar-text navbar-right">欢迎&nbsp;&nbsp;<span>${sessionScope.username}</span>&nbsp;&nbsp;登录本网站&nbsp;&nbsp;<a href="util/user?opr=logout">退出账号</a>&nbsp;&nbsp;</p>
+    		</div>
+      	</c:when>
+      	
+      	<c:otherwise>
+    
+        <form class="navbar-form navbar-right" role="search" action="util/user" method="post" onsubmit="return check()">
+        <input type="hidden" name="opr" value="login"/>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="用户名" name="uname">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="密码" name="upwd">
+            </div>
+            <button type="submit" class="btn btn-default">登录</button>
+        </form>
+		</c:otherwise>
+
+</c:choose>
+    </div>
+    </div>
+</nav> 
 </div>
 <div id="container">
   <%@ include file="../index-elements/index_sidebar.jsp" %>
     <div class="main">
-    <div class="class_type"> <h1>新闻中心</h1></div>
     <div class="content">
+   
       <ul class="classlist">
         <table width="80%" align="center">
           <tr width="100%">
-            <td colspan="2" align="center">${news.ntitle}</td>
+            <td colspan="2" align="center"><h4>${news.ntitle}</h4></td>
           </tr>
           <tr>
             <td colspan="2"><hr />
@@ -112,39 +135,59 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </c:choose>
         </table>
       </ul>
-      <ul class="classlist">
-        <form action="util/news?opr=addComment" method="post" onSubmit="return checkComment()">
-          <input type="hidden" name="nid" value="${news.nid}" />
-          <table width="80%" align="center">
-            <tr>
-              <td> 评 论 </td>
-            </tr>
-            <tr>
-              <td> 用户名： </td>
-              <td>
-              <c:choose>
-              <c:when test="${not empty sessionScope.admin}">
-                  <input id="cauthor" name="cauthor" value="${sessionScope.admin}" readonly="readonly" style="border:0px;"/>
-              </c:when>
-              <c:otherwise>
-                  <input id="cauthor" name="cauthor" value="这家伙很懒什么也没留下"/>
-              </c:otherwise>
-              </c:choose>
-                IP：
-                <input name="cip" id="cip" value="${pageContext.request.remoteAddr}" readonly="readonly" style="border:0px;"/>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2"><textarea name="ccontent" id="ccontent" cols="70" rows="10"></textarea>
-              </td>
-            </tr>
-            <tr><td><input name="submit" value="发  表" type="submit"/>
-              </td></tr>
-          </table>
-        </form>
-      </ul>
+      
+      <c:choose>
+      	<c:when test="${not empty sessionScope.username}">
+						<ul class="classlist">
+							<form action="util/news?opr=addComment" method="post"
+								onSubmit="return checkComment()">
+								<input type="hidden" name="nid" value="${news.nid}" />
+								<table width="80%" align="center">
+									<tr>
+										<td>评 论</td>
+									</tr>
+									<tr>
+										<td>用户名：</td>
+										<td><c:choose>
+												<c:when test="${not empty sessionScope.admin}">
+													<input id="cauthor" name="cauthor"
+														value="${sessionScope.admin}" readonly="readonly"
+														style="border: 0px;" />
+												</c:when>
+												<c:otherwise>
+													<input id="cauthor" name="cauthor" value="${sessionScope.username}"  readonly="readonly"/>
+												</c:otherwise>
+											</c:choose> IP： <input name="cip" id="cip"
+											value="${pageContext.request.remoteAddr}" readonly="readonly"
+											style="border: 0px;" /></td>
+									</tr>
+									<tr>
+										<td colspan="2"><textarea name="ccontent" id="ccontent"
+												cols="70" rows="10"></textarea></td>
+									</tr>
+									<tr>
+										<td><input name="submit" value="发  表" type="submit" /></td>
+									</tr>
+								</table>
+							</form>
+						</ul>
+
+
+
+					</c:when>
+					<c:otherwise>
+						<a href="#">登录后可进行评论</a>
+					
+					</c:otherwise>
+      
+      
+      </c:choose>
+      
+      
+      
     </div>
   </div>
+
 </div>
 <%--
     request.removeAttribute("news_view");

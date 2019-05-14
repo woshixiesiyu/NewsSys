@@ -18,7 +18,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         ResultSet rs = null;
         User user = null;
         // 根据用户名密码查找匹配的用户
-        String sql = "select * from NEWS_USERS where uname=? and upwd=?";
+        String sql = "select * from news_users where uname=? and upwd=?";
         try {
             rs = this.executeQuery(sql, uname, password);
             if (rs.next()) {

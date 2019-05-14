@@ -49,25 +49,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body onload="focusOnLogin()">
   
 <div id="header">
-<!--   <div id="top_login">
-    <form action="util/user" method="post" onsubmit="return check()">
-      <input type="hidden" name="opr" value="login"/>
-      <label> 登录名 </label>
-      <input type="text" name="uname" value="" class="login_input" />
-      <label> 密&#160;&#160;码 </label>
-      <input type="password" name="upwd" value="" class="login_input" />
-      <input type="submit" class="login_sub" value="登录" />
-      <label id="error"> </label>
-    </form>
-  </div>
-   -->
+
  <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
     <div class="navbar-header">
-        <a class="navbar-brand" href="#">新闻中国</a>
+        <a class="navbar-brand" href="http://localhost:8080/NewsSys/">新闻中国</a>
     </div>
-    <div>
-        <form class="navbar-form navbar-left" role="search" action="util/user" method="post" onsubmit="return check()">
+    <div >
+         <c:choose>
+      	<c:when test="${not empty sessionScope.username}">
+      		<div>
+        		<p class="navbar-text navbar-right">欢迎&nbsp;&nbsp;<span>${sessionScope.username}</span>&nbsp;&nbsp;登录本网站&nbsp;&nbsp;<a href="util/user?opr=logout">退出账号</a>&nbsp;&nbsp;</p>
+    		</div>
+      	
+      	
+      	</c:when>
+      	
+      	<c:otherwise>
+    
+        <form class="navbar-form navbar-right" role="search" action="util/user" method="post" onsubmit="return check()">
         <input type="hidden" name="opr" value="login"/>
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="用户名" name="uname">
@@ -77,12 +77,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <button type="submit" class="btn btn-default">登录</button>
         </form>
+		</c:otherwise>
 
+</c:choose>
     </div>
     </div>
 </nav> 
   <div id="nav">
-    <div id="logo"> <img src="images/logo.jpg" alt="新闻中国" /> </div>
+   <!--  <div id="logo"> <img src="images/logo.jpg" alt="新闻中国" /> </div> -->
     <!--mainnav end-->
   </div>
 </div>
@@ -91,12 +93,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <%@ include file="index-elements/index_sidebar.jsp"%>
  
   <div class="main">
-    <div class="class_type"> <h1>新闻中心</h1> </div>
+    <!-- <div class="class_type"> <h1>新闻中心</h1> </div> -->
     <div class="content">
       <ul class="class_date">
       <c:forEach items="${requestScope.list}" var="topic" varStatus="i">
         <c:if test="${i.count % 11 == 1}"><li id='class_month'></c:if>
-        <a href="util/news?opr=listTitle&tid=${topic.tid}"><b>${topic.tname}</b></a>
+        <a  class="label label-info" style="display:inline-block;margin-bottom: 2px;font-size: 110%" href="util/news?opr=listTitle&tid=${topic.tid}"><b>${topic.tname}</b></a>
         <c:if test="${i.count % 11 == 0}"></li></c:if>
         <c:set var="n" value="${i.count}"/>
       </c:forEach>
@@ -110,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <c:forEach items="${requestScope.list4}" var="news" varStatus="i">
             <li>
             <a href='util/news?opr=readNew&nid=${news.nid}'>${news.ntitle}</a>
-            <span style="right:1px;"><fmt:formatDate value="${news.ncreatedate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+            <span style="font-size: 10px"><fmt:formatDate value="${news.ncreatedate}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
             </li>
             <c:if test="${i.count % 5 == 0}"><li class='space'></li></c:if>
           </c:forEach>

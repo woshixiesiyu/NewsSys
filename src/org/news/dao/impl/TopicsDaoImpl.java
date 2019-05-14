@@ -40,7 +40,7 @@ public class TopicsDaoImpl extends BaseDao implements TopicsDao {
     }
 
     public int deleteTopic(int tid) throws SQLException {
-        String sql = "DELETE FROM `TOPIC` WHERE `tid` = ?";
+        String sql = "DELETE FROM `topic` WHERE `tid` = ?";
         int result = 0;
         try {
             result = executeUpdate(sql, tid);
@@ -52,7 +52,7 @@ public class TopicsDaoImpl extends BaseDao implements TopicsDao {
     }
 
     public int updateTopic(Topic topic) throws SQLException {
-        String sql = "UPDATE `TOPIC` SET `tname` = ? WHERE `tid` = ?";
+        String sql = "UPDATE `topic` SET `tname` = ? WHERE `tid` = ?";
         int result = 0;
         try {
             result = executeUpdate(sql, topic.getTname(), topic.getTid());

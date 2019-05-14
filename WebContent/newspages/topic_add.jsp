@@ -5,6 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>添加主题--管理后台</title>
 <link href="../css/admin.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript">
 	function check(){
 		var tname = document.getElementById("tname");
@@ -31,7 +32,18 @@
   <div id="channel"> </div>
 </div>
 <div id="main">
-  <%@ include file="console_element/left.html" %>
+  <div id="opt_list">
+<ul class="list-group">
+  	<li>新闻管理</li>
+    <li><a href="../util/news?opr=toAddNews">添加新闻</a></li>
+    <li><a href="../util/news?opr=list">编辑新闻</a></li>
+    <li><a href="../newspages/topic_add.jsp">添加主题</a></li>
+    <li><a href="../util/topics?opr=list">编辑主题</a></li>
+    <li><a href="../util/news?opr=autoGet">自动获取新闻源</a></li>
+    <li>用户管理</li>
+    <li><a href="#">用户登录权限</a></li>
+  </ul>
+</div>
   <div id="opt_area">
     <h1 id="opt_type"> 添加主题： </h1>
     <form action="../util/topics?opr=add" method="post" onsubmit="return check()">

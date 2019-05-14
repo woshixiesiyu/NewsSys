@@ -107,7 +107,7 @@ public class NewsServlet extends HttpServlet {
                     currPageNo = 1;
                 Page pageObj = new Page();
                 pageObj.setCurrPageNo(currPageNo); // 设置当前页码
-                pageObj.setPageSize(15); // 设置每页显示条数
+                pageObj.setPageSize(30); // 设置每页显示条数
                 if (tid == null || (tid = tid.trim()).length() == 0) {
                     newsService.findPageNews(pageObj); // 分页查询新闻
                     list4 = pageObj.getNewsList();
@@ -199,7 +199,6 @@ public class NewsServlet extends HttpServlet {
             			"news_game","news_comic","emotion"
             	};
               
-            	System.out.println(tid);
             	int ntid=Integer.parseInt(tid);
          
             	NewsServiceImpl newsAutoSevice=new NewsServiceImpl();

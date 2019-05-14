@@ -22,8 +22,8 @@ public class NewsDaoImpl extends BaseDao implements NewsDao {
         List<News> list = new ArrayList<News>();
         ResultSet rs = null;
         String sql = "SELECT `nid`, `ntid`, `ntitle`, `nauthor`,"
-                + " `ncreateDate`, `nsummary`, `tname` FROM `NEWS`, `TOPIC`"
-                + " WHERE `NEWS`.`ntid` = `TOPIC`.`tid`"
+                + " `ncreateDate`, `nsummary`, `tname` FROM `news`, `topic`"
+                + " WHERE `news`.`ntid` = `topic`.`tid`"
                 + " ORDER BY `ncreateDate` DESC";
         try {
             rs = this.executeQuery(sql);
@@ -53,8 +53,8 @@ public class NewsDaoImpl extends BaseDao implements NewsDao {
         List<News> list = new ArrayList<News>();
         ResultSet rs = null;
         String sql = "SELECT `nid`, `ntid`, `ntitle`, `nauthor`,"
-                + " `ncreateDate`, `nsummary`, `tname` FROM `NEWS`, `TOPIC`"
-                + " WHERE `NEWS`.`ntid` = `TOPIC`.`tid` AND `NEWS`.`ntid` = ?"
+                + " `ncreateDate`, `nsummary`, `tname` FROM `news`, `topic`"
+                + " WHERE `news`.`ntid` = `topic`.`tid` AND `news`.`ntid` = ?"
                 + " ORDER BY `ncreateDate` DESC";
         try {
             rs = this.executeQuery(sql, tid);
@@ -84,7 +84,7 @@ public class NewsDaoImpl extends BaseDao implements NewsDao {
             throws SQLException {
         List<News> list = new ArrayList<News>();
         ResultSet rs = null;
-        String sql = "SELECT `nid`, `ntid`, `ntitle` FROM `NEWS` WHERE"
+        String sql = "SELECT `nid`, `ntid`, `ntitle` FROM `news` WHERE"
                 + " `ntid` = ? ORDER BY `ncreatedate` DESC LIMIT ?";
         try {
             rs = this.executeQuery(sql, tid, limit);
@@ -126,8 +126,8 @@ public class NewsDaoImpl extends BaseDao implements NewsDao {
     // 获取某条新闻
     public News getNewsByNID(int nid) throws SQLException {
         ResultSet rs = null;
-        String sql = "SELECT * FROM `NEWS`, `TOPIC`"
-                + " WHERE `NEWS`.`ntid` = `TOPIC`.`tid` AND `NEWS`.`nid` = ?"
+        String sql = "SELECT * FROM `news`, `topic`"
+                + " WHERE `news`.`ntid` = `topic`.`tid` AND `news`.`nid` = ?"
                 + " ORDER BY `ncreateDate` DESC";
         News news = null;
         try {
@@ -159,8 +159,8 @@ public class NewsDaoImpl extends BaseDao implements NewsDao {
         ResultSet rs = null;
         // 获取某主题下的所有新闻
         String sql = "SELECT `nid`, `ntid`, `ntitle`, `nauthor`,"
-                + " `ncreateDate`, `nsummary`, `tname` FROM `NEWS`, `TOPIC`"
-                + " WHERE `NEWS`.`ntid` = `TOPIC`.`tid` AND `TOPIC`.`tname` = ?"
+                + " `ncreateDate`, `nsummary`, `tname` FROM `news`, `topic`"
+                + " WHERE `news`.`ntid` = `topic`.`tid` AND `topic`.`tname` = ?"
                 + " ORDER BY `ncreateDate` DESC";
         try {
             rs = this.executeQuery(sql, tname);
@@ -187,7 +187,7 @@ public class NewsDaoImpl extends BaseDao implements NewsDao {
 
     // 删除某条新闻
     public int deleteNews(int nid) throws SQLException {
-        String sql = "DELETE FROM `NEWS` WHERE `NID` = ?";
+        String sql = "DELETE FROM `news` WHERE `NID` = ?";
         int result = 0;
         try {
             result = executeUpdate(sql, nid);
@@ -222,8 +222,8 @@ public class NewsDaoImpl extends BaseDao implements NewsDao {
         List<News> list = new ArrayList<News>();
         ResultSet rs = null;
         String sql = "SELECT `nid`, `ntid`, `ntitle`, `nauthor`,"
-                + " `ncreateDate`, `nsummary`, `tname` FROM `NEWS`, `TOPIC`"
-                + " WHERE `NEWS`.`ntid` = `TOPIC`.`tid`"
+                + " `ncreateDate`, `nsummary`, `tname` FROM `news`, `topic`"
+                + " WHERE `news`.`ntid` = `topic`.`tid`"
                 + " ORDER BY `ncreateDate` DESC LIMIT ?, ?";
         try {
             rs = this.executeQuery(sql, (pageNo - 1) * pageSize, pageSize);
@@ -234,7 +234,7 @@ public class NewsDaoImpl extends BaseDao implements NewsDao {
                 news.setNtid(rs.getInt("ntid"));
                 news.setNtitle(rs.getString("ntitle"));
                 news.setNauthor(rs.getString("nauthor"));
-                news.setNcreatedate(rs.getDate("ncreateDate"));
+                news.setNcreatedate(rs.getTimestamp("ncreateDate"));//getdate
                 news.setNsummary(rs.getString("nsummary"));
                 news.setNtname(rs.getString("tname"));
                 list.add(news);
