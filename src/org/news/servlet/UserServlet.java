@@ -2,6 +2,7 @@ package org.news.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,7 +36,6 @@ public class UserServlet extends HttpServlet {
                 user.setUname(uname);
                 user.setUpwd(password);
                 user = userService.doLogin(user);
-                System.out.println(uname+password);
                 if (user == null) {
                     out.print("<script type=\"text/javascript\">");
                     out.print("alert(\"用户名密码错误，请重新登录\");");
@@ -66,7 +66,23 @@ public class UserServlet extends HttpServlet {
             	request.getRequestDispatcher("/index.jsp").forward(request, response);
             	
             }
+            else if(opr.equals("user_per")) {
+            	
+            	List<User> userlist=userService.getAlluser();
+            	System.out.println(userlist.toString());
+            	request.setAttribute("userlist", userlist);
+            	request.getRequestDispatcher("/newspages/user_per.jsp").forward(request, response);
+            	
+            }
             
+            else if(opr.equals("delete")) {
+            	
+            	
+            }
+            else if(opr.equals("update")) {
+            	
+            	
+            }
             
         } catch (Exception e) {
             e.printStackTrace();

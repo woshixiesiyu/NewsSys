@@ -2,6 +2,7 @@ package org.news.service.impl;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.news.dao.impl.UserDaoImpl;
 import org.news.entity.User;
@@ -25,5 +26,14 @@ public class UserServiceImpl implements UserService {
             DatabaseUtil.closeAll(conn, null, null);
         }
     }
+    
+    public List<User> getAlluser() throws SQLException{
+		Connection conn=null;
+		conn=DatabaseUtil.getConnection();	
+    	return new UserDaoImpl(conn).getAlluser();
+    	
+    	
+    }
+   
 
 }

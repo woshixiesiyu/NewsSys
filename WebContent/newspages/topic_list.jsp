@@ -31,7 +31,7 @@
     <li><a href="../util/topics?opr=list">编辑主题</a></li>
     <li><a href="../util/news?opr=autoGet">自动获取新闻源</a></li>
     <li>用户管理</li>
-    <li><a href="#">用户登录权限</a></li>
+    <li><a href="../util/user?opr=user_per">用户登录权限</a></li>
   </ul>
 </div>
   <div id="opt_area">
