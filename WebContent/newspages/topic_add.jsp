@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
@@ -28,7 +30,7 @@
   </div>
 </div>
 <div id="admin_bar">
-  <div id="status">管理员： 登录  &#160;&#160;&#160;&#160; <a href="#">login out</a></div>
+  <div id="status">管理员：${user.uname } 登录  &#160;&#160;&#160;&#160; <a href="http://localhost:8080/NewsSys/util/user?opr=logout">退出登录</a>&#160;&#160;&#160;&#160;<a href="http://localhost:8080/NewsSys">返回首页</a></div>
   <div id="channel"> </div>
 </div>
 <div id="main">
@@ -36,12 +38,25 @@
 <ul class="list-group">
   	<li>新闻管理</li>
     <li><a href="../util/news?opr=toAddNews">添加新闻</a></li>
+    <c:choose>
+    <c:when test="${user.role eq '管理员' }">
     <li><a href="../util/news?opr=list">编辑新闻</a></li>
+    </c:when>
+    <c:otherwise>
+    	<li><a href="../util/news?opr=editorlist">编辑新闻</a></li>
+    </c:otherwise>
+    </c:choose>
     <li><a href="../newspages/topic_add.jsp">添加主题</a></li>
     <li><a href="../util/topics?opr=list">编辑主题</a></li>
-    <li><a href="../util/news?opr=autoGet">自动获取新闻源</a></li>
-    <li>用户管理</li>
-    <li><a href="../util/user?opr=user_per">用户登录权限</a></li>
+    <c:choose>
+    <c:when test="${user.role eq '管理员' }">
+    
+    	<li><a href="../util/news?opr=autoGet">自动获取新闻源</a></li>
+    	<li>用户管理</li>
+    	<li><a href="../util/user?opr=user_per">用户信息管理</a></li>
+    	<li><a href="../newspages/editor_add.jsp">添加新闻编辑员</a></li>
+    </c:when>
+    </c:choose>
   </ul>
 </div>
   <div id="opt_area">

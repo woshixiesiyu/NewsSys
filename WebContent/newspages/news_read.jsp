@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="css/read.css" rel="stylesheet" type="text/css" />
 <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript">
-	  		function check(){
+	  		function checkComment(){
 	  			var cauthor = document.getElementById("cauthor");
 	  			var content = document.getElementById("ccontent");
 	  			if(cauthor.value == ""){
@@ -39,28 +39,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
     <div>
     
-    <c:choose>
-      	<c:when test="${not empty sessionScope.username}">
-      		<div>
-        		<p class="navbar-text navbar-right">欢迎&nbsp;&nbsp;<span>${sessionScope.username}</span>&nbsp;&nbsp;登录本网站&nbsp;&nbsp;<a href="util/user?opr=logout">退出账号</a>&nbsp;&nbsp;</p>
-    		</div>
-      	</c:when>
-      	
-      	<c:otherwise>
-    
-        <form class="navbar-form navbar-right" role="search" action="util/user" method="post" onsubmit="return check()">
-        <input type="hidden" name="opr" value="login"/>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="用户名" name="uname">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="密码" name="upwd">
-            </div>
-            <button type="submit" class="btn btn-default">登录</button>
-        </form>
-		</c:otherwise>
 
-</c:choose>
+      		<div>
+        		<p class="navbar-text navbar-right">欢迎&nbsp;&nbsp;<span>${user.uname}</span>&nbsp;&nbsp;登录本网站&nbsp;&nbsp;<a href="util/user?opr=logout">退出账号</a>&nbsp;&nbsp;</p>
+    		</div>
+
     </div>
     </div>
 </nav> 
@@ -137,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </ul>
       
       <c:choose>
-      	<c:when test="${not empty sessionScope.username}">
+      	<c:when test="${not empty sessionScope.user}">
 						<ul class="classlist">
 							<form action="util/news?opr=addComment" method="post"
 								onSubmit="return checkComment()">
@@ -148,18 +131,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</tr>
 									<tr>
 										<td>用户名：</td>
-										<td><c:choose>
-												<c:when test="${not empty sessionScope.admin}">
-													<input id="cauthor" name="cauthor"
-														value="${sessionScope.admin}" readonly="readonly"
-														style="border: 0px;" />
-												</c:when>
-												<c:otherwise>
-													<input id="cauthor" name="cauthor" value="${sessionScope.username}"  readonly="readonly"/>
-												</c:otherwise>
-											</c:choose> IP： <input name="cip" id="cip"
+										<td>
+										<input id="cauthor" name="cauthor"
+											value="${sessionScope.user.uname}" readonly="readonly"
+											style="border: 0px;" />
+											 IP： <input name="cip" id="cip"
 											value="${pageContext.request.remoteAddr}" readonly="readonly"
-											style="border: 0px;" /></td>
+											style="border: 0px;" />
+											</td>
 									</tr>
 									<tr>
 										<td colspan="2"><textarea name="ccontent" id="ccontent"

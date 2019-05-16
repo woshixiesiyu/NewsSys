@@ -10,6 +10,9 @@ import org.news.util.Page;
 public interface NewsService {
     // 获取所有新闻
     public List<News> findAllNews() throws SQLException;
+    
+    public List<News> findAllNewsByEditor(String uname) throws SQLException;
+    
     // 获取某主题下的所有新闻（根据主题id）
     public List<News> findAllNewsByTid(int tid) throws SQLException;
     // 获取某主题下的所有新闻（根据主题名称）

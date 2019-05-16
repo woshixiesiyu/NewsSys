@@ -23,6 +23,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.news.entity.Comment;
 import org.news.entity.News;
 import org.news.entity.Topic;
+import org.news.entity.User;
 import org.news.service.CommentsService;
 import org.news.service.NewsService;
 import org.news.service.TopicsService;
@@ -128,6 +129,7 @@ public class NewsServlet extends HttpServlet {
                 response.sendRedirect(contextPath + "/newspages/admin.jsp");
             } else if ("delete".equals(opr)) { // 删除新闻及评论
                 String nid = request.getParameter("nid");
+                String role=request.getParameter("role");
                 try {
                     int result = newsService.deleteNews(Integer.parseInt(nid));
                     if (result == 0) {
@@ -139,8 +141,18 @@ public class NewsServlet extends HttpServlet {
                     } else {
                         out.print("<script type=\"text/javascript\">");
                         out.print("alert(\"已经成功删除新闻，点击确认返回新闻列表\");");
-                        out.print("location.href=\"" + contextPath
-                                + "/util/news?opr=list\";");
+                        if(role.equals("管理员")) {
+                        
+                        	out.print("location.href=\"" + contextPath
+                        			+ "/util/news?opr=list\";");
+                        }
+                        else {
+                        	
+                        	out.print("location.href=\"" + contextPath
+                        			+ "/util/news?opr=editorlist\";");
+                        	
+                        }
+                        
                         out.print("</script>");
                     }
                 } catch (Exception e) {
@@ -207,8 +219,17 @@ public class NewsServlet extends HttpServlet {
      
             	
             }  
+            else if(opr.equals("editorlist")) {
+            	User user=(User)request.getSession().getAttribute("user");
+            	System.out.println(user.getRole());
+            	 List<News> list = newsService.findAllNewsByEditor(user.getUname());
+                 request.getSession().setAttribute("editorlist", list);
+                 response.sendRedirect(contextPath + "/newspages/editor_admin.jsp");
+            	
+            	
+            }
+            
             else if(opr.equals("autoGet")) {
-            	System.out.println("autoget'");
             	request.setAttribute("topics", topicService.findAllTopics());
                 request.getRequestDispatcher("/newspages/autoGet.jsp")
                         .forward(request, response);
@@ -217,6 +238,7 @@ public class NewsServlet extends HttpServlet {
             else if (opr.equals("addNews") || opr.equals("modifyNews")) { // 添加或修改新闻
                 News news = new News();
                 String nid = request.getParameter("nid");
+                String role=request.getParameter("role");
                 if (nid != null && (nid = nid.trim()).length() > 0)
                     news.setNid(Integer.parseInt(nid));
                 String fieldName = ""; // 表单字段元素的name属性值
@@ -292,9 +314,19 @@ public class NewsServlet extends HttpServlet {
                                     if (result == 0) {
                                         out.print("<script type=\"text/javascript\">");
                                         out.print("alert(\"未找到相关新闻，点击确认返回新闻列表\");");
-                                        out.print("location.href=\""
-                                                + contextPath
-                                                + "/util/news?opr=list\";");
+                                        if(role.equals("管理员")) {
+                                        	out.print("location.href=\""
+                                                	+ contextPath
+                                                	+ "/util/news?opr=list\";");
+                                        
+                                        }
+                                        else {
+                                        	
+                                        	out.print("location.href=\""
+                                                	+ contextPath
+                                                	+ "/util/news?opr=editorlist\";");
+                                        	
+                                        }
                                         out.print("</script>");
                                     } else {
                                         out.print("<script type=\"text/javascript\">");
@@ -304,9 +336,19 @@ public class NewsServlet extends HttpServlet {
                                                 + "/util/news?opr=toModifyNews&nid="
                                                 + news.getNid() + "\";");
                                         out.print("} else {");
-                                        out.print("location.href=\""
-                                                + contextPath
-                                                + "/util/news?opr=list\";");
+                                        if(role.equals("管理员")) {
+                                        	out.print("location.href=\""
+                                                	+ contextPath
+                                                	+ "/util/news?opr=list\";");
+                                        
+                                        }
+                                        else {
+                                        	
+                                        	out.print("location.href=\""
+                                                	+ contextPath
+                                                	+ "/util/news?opr=editorlist\";");
+                                        	
+                                        }
                                         out.print("}");
                                         out.print("</script>");
                                     }
@@ -315,6 +357,8 @@ public class NewsServlet extends HttpServlet {
                                         saveFile.delete();
                                     out.print("<script type=\"text/javascript\">");
                                     out.print("alert(\"新闻更新失败，请联系管理员！\");");
+                                    
+                                    
                                     out.print("location.href=\""
                                             + contextPath
                                             + "/util/news?opr=toModifyNews&nid="
@@ -329,8 +373,19 @@ public class NewsServlet extends HttpServlet {
                                     out.print("location.href=\"" + contextPath
                                             + "/util/news?opr=toAddNews\";");
                                     out.print("} else {");
-                                    out.print("location.href=\"" + contextPath
-                                            + "/util/news?opr=list\";");
+                                    if(role.equals("管理员")) {
+                                    	out.print("location.href=\""
+                                            	+ contextPath
+                                            	+ "/util/news?opr=list\";");
+                                    
+                                    }
+                                    else {
+                                    	
+                                    	out.print("location.href=\""
+                                            	+ contextPath
+                                            	+ "/util/news?opr=editorlist\";");
+                                    	
+                                    }
                                     out.print("}");
                                     out.print("</script>");
                                 } catch (SQLException e) {

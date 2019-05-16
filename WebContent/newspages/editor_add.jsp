@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>自动获取新闻源</title>
+<title>添加主题--管理后台</title>
 <link href="../css/admin.css" rel="stylesheet" type="text/css" />
 <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -21,32 +21,43 @@
   <div id="channel"> </div>
 </div>
 <div id="main">
-<div id="opt_list">
-<ul class="list-group">
+  <div id="opt_list">
+  <ul class="list-group">
   	<li>新闻管理</li>
     <li><a href="../util/news?opr=toAddNews">添加新闻</a></li>
+     <c:choose>
+    <c:when test="${user.role eq '管理员' }">
     <li><a href="../util/news?opr=list">编辑新闻</a></li>
+    </c:when>
+    <c:otherwise>
+    	<li><a href="../util/news?opr=editorlist">编辑新闻</a></li>
+    </c:otherwise>
+    </c:choose>
     <li><a href="../newspages/topic_add.jsp">添加主题</a></li>
     <li><a href="../util/topics?opr=list">编辑主题</a></li>
-    <li><a href="../util/news?opr=autoGet">自动获取新闻源</a></li>
-    <li>用户管理</li>
-    <li><a href="../util/user?opr=user_per">用户信息管理</a></li>
-    <li><a href="../newspages/editor_add.jsp">添加新闻编辑员</a></li>
+    
+
+    
+    	<li><a href="../util/news?opr=autoGet">自动获取新闻源</a></li>
+    	<li>用户管理</li>
+    	<li><a href="../util/user?opr=user_per">用户信息管理</a></li>
+    	<li><a href="../newspages/editor_add.jsp">添加新闻编辑员</a></li>
   </ul>
 </div>
   <div id="opt_area">
-    <h1 id="opt_type"> 手动添加新闻： </h1>
-    <form action="../util/news?opr=autoAddNews" method="post" >
+    <h1 id="opt_type"> 添加新闻编辑员： </h1>
+    <form action="../util/user?opr=toAddEditor" method="post" >
+
       <p>
-        <label> 主题 </label>
-        <select name="ntid">
-          <option value=""></option>
-          <c:forEach items="${requestScope.topics}" var="topic">
-            <option value='${topic.tid}'>${topic.tname}</option>
-          </c:forEach>
-        </select>
+        <label> 用户名 </label>
+        <input name="uname" type="text" class="opt_input" />
       </p>
-      <input type="submit" value="点击获取" class="opt_sub" />
+      <p>
+        <label> 密码 </label>
+        <input name="upwd" type="text" class="opt_input" />
+      </p>
+     
+      <input type="submit" value="提交" class="opt_sub" />
       <input type="reset" value="重置" class="opt_sub" />
     </form>
   </div>

@@ -292,6 +292,23 @@ public class NewsServiceImpl implements NewsService {
     	instream.close();
     	}
     	}
+
+	@Override
+	public List<News> findAllNewsByEditor(String uname) throws SQLException {
+		Connection conn = null;
+        try {
+            conn = DatabaseUtil.getConnection();
+
+            return new NewsDaoImpl(conn).findAllNewsByEditor(uname);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            DatabaseUtil.closeAll(conn, null, null);
+        }
+
+
+	}
     	
    
     

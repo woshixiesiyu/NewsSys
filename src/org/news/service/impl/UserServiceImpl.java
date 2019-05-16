@@ -34,6 +34,44 @@ public class UserServiceImpl implements UserService {
     	
     	
     }
+
+	@Override
+	public void update(User user) throws SQLException {
+		Connection conn=null;
+		conn=DatabaseUtil.getConnection();	
+		new UserDaoImpl(conn).update(user);
+		
+		
+	}
+
+	@Override
+	public void delete(int uid) throws SQLException {
+		
+		Connection conn=null;
+		conn=DatabaseUtil.getConnection();	
+		new UserDaoImpl(conn).delete(uid);
+		
+	}
+
+	@Override
+	public User findUserById(int uid) throws SQLException {
+		Connection conn=null;
+		conn=DatabaseUtil.getConnection();
+		
+		
+		return new UserDaoImpl(conn).findUserById(uid);
+	}
+
+	@Override
+	public void register(User user) throws SQLException {
+		Connection conn=null;
+		conn=DatabaseUtil.getConnection();	
+		new UserDaoImpl(conn).addUser(user);
+		
+		
+		
+		
+	}
    
 
 }

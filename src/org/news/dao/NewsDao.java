@@ -8,6 +8,8 @@ import org.news.entity.News;
 public interface NewsDao {
     // 获取所有新闻
     public List<News> getAllnews() throws SQLException;
+    public List<News> findAllNewsByEditor(String uname);
+    
     // 获取某主题下的所有新闻（根据主题id）
     public List<News> getAllnewsByTID(int Tid) throws SQLException;
     // 获取某主题下的所有新闻（根据主题名称）

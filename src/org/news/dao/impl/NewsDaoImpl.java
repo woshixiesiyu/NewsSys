@@ -281,4 +281,36 @@ public class NewsDaoImpl extends BaseDao implements NewsDao {
         }
         return result;
     }
+
+	public List<News> findAllNewsByEditor(String uname) {
+		List<News> list = new ArrayList<News>();
+        ResultSet rs = null;
+        String sql = "SELECT `nid`, `ntid`, `ntitle`, `nauthor`,"
+                + " `ncreateDate`, `nsummary`, `tname` FROM `news`, `topic`"
+                + " WHERE `news`.`ntid` = `topic`.`tid` AND news.nauthor=?"
+                + " ORDER BY `ncreateDate` DESC";
+        try {
+            rs = this.executeQuery(sql,uname);
+            News news = null;
+            while (rs.next()) {
+                news = new News();
+                news.setNid(rs.getInt("nid"));
+                news.setNtid(rs.getInt("ntid"));
+                news.setNtitle(rs.getString("ntitle"));
+                news.setNauthor(rs.getString("nauthor"));
+                news.setNcreatedate(rs.getTimestamp("ncreateDate"));
+                news.setNsummary(rs.getString("nsummary"));
+                news.setNtname(rs.getString("tname"));
+             
+                list.add(news);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseUtil.closeAll(null, null, rs);
+        }
+        return list;
+
+
+	}
 }

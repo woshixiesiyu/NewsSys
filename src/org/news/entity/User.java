@@ -12,6 +12,7 @@ public class User implements Serializable {
     private int uid;
 	private String uname;
 	private String upwd;
+	private String role;
 
 	public void setUid(int uid) {
 		this.uid = uid;
@@ -36,4 +37,14 @@ public class User implements Serializable {
 	public String getUpwd() {
 		return upwd;
 	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
+	
 }

@@ -57,9 +57,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
     <div >
          <c:choose>
-      	<c:when test="${not empty sessionScope.username}">
+      	<c:when test="${not empty sessionScope.user.uname}">
       		<div>
-        		<p class="navbar-text navbar-right">欢迎&nbsp;&nbsp;<span>${sessionScope.username}</span>&nbsp;&nbsp;登录本网站&nbsp;&nbsp;<a href="util/user?opr=logout">退出账号</a>&nbsp;&nbsp;</p>
+        		<p class="navbar-text navbar-right">欢迎&nbsp;&nbsp;<span>${sessionScope.user.uname}</span>&nbsp;&nbsp;登录本网站&nbsp;&nbsp;<a href="util/user?opr=logout">退出账号</a>&nbsp;&nbsp;</p>
     		</div>
       	
       	
@@ -75,7 +75,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="密码" name="upwd">
             </div>
-            <button type="submit" class="btn btn-default">登录</button>
+            <button type="submit" class="btn btn-default">登录</button>&#160;&#160;
+            <a href="#" data-toggle="modal" data-target="#myModal">注册账号</a>
         </form>
 		</c:otherwise>
 
@@ -91,6 +92,60 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div id="container">
 
 <%@ include file="index-elements/index_sidebar.jsp"%>
+
+<script type="text/javascript">
+	function check(){
+		var register_username = document.getElementById("r_uname");
+		var register_password = document.getElementById("r_upwd");
+		if(register_username.value == ""){
+			alert("用户名不能为空！请重新填入！");
+			register_username.focus();	
+			return false;
+		}else if(register_password.value == ""){
+			alert("密码不能为空！请重新填入！");
+			register_password.focus();
+			return false;
+		}
+		return true;
+	}
+	
+	function focusOnLogin(){
+		var register_username = document.getElementById("r_uname");
+		register_username.focus();	
+	}
+</script>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">注册账号</h4>
+            </div>
+           
+            <form action="util/user" method="post" onsubmit="return check()">
+						<input type="hidden" name="opr" value="register"/>
+						<div class="form-group" >
+							<label for="name">用户名</label> <input type="text"
+								class="form-control" placeholder="文本输入" id="r_uname" name="uname">
+						</div>
+						<div class="form-group" >
+							<label for="name">密码</label> <input type="password"
+								class="form-control" placeholder="文本输入" id="r_upwd" name="upwd">
+						</div>
+
+						<div class="modal-footer">
+							<button type="reset" class="btn btn-default"
+								data-dismiss="modal">重置</button>
+							<button type="submit" class="btn btn-success">确认注册</button>
+						</div>
+
+		   </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
  
   <div class="main">
     <!-- <div class="class_type"> <h1>新闻中心</h1> </div> -->
