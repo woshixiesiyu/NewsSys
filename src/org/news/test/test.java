@@ -9,11 +9,11 @@ import org.news.service.impl.NewsServiceImpl;
 public class test {
 
 	public static void main(String[] args) throws SQLException {
-		List<News> list=new NewsServiceImpl().findAllNewsByEditor("editor");
+		List<News> list=new NewsServiceImpl().findAllNewsByKey("巴");
 		
 		for(News news:list) {
 			
-			System.out.println(news.getNauthor());
+			System.out.println(news.getNtitle());
 			
 		}
 

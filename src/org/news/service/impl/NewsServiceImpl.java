@@ -188,6 +188,38 @@ public class NewsServiceImpl implements NewsService {
             DatabaseUtil.closeAll(conn, null, null);
         }
     }
+    
+    public void findPageNewsByKey(Page pageObj,String keyname) throws SQLException {
+    	
+    	Connection conn = null;
+        try {
+            conn = DatabaseUtil.getConnection();
+
+            NewsDao newsDao = new NewsDaoImpl(conn);
+            int totalCount = newsDao.getTotalCount();
+            pageObj.setTotalCount(totalCount); // 设置总数量并计算总页数
+            if (totalCount > 0) {
+                if (pageObj.getCurrPageNo() > pageObj.getTotalPageCount())
+                    pageObj.setCurrPageNo(pageObj.getTotalPageCount());
+                List<News> newsList = newsDao.getPageNewsList(
+                        pageObj.getCurrPageNo(), pageObj.getPageSize());
+                pageObj.setNewsList(newsList);
+            } else {
+                pageObj.setCurrPageNo(0);
+                pageObj.setNewsList(new ArrayList<News>());
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseUtil.closeAll(conn, null, null);
+        }
+    	
+    	
+    	
+    	
+    }
+    
 
     @Override
     public int addNews(News news) throws SQLException {
@@ -308,6 +340,21 @@ public class NewsServiceImpl implements NewsService {
         }
 
 
+	}
+
+	@Override
+	public List<News> findAllNewsByKey(String keyname) throws SQLException {
+		Connection conn = null;
+        try {
+            conn = DatabaseUtil.getConnection();
+
+            return new NewsDaoImpl(conn).getAllnewsByKey(keyname);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            DatabaseUtil.closeAll(conn, null, null);
+        }
 	}
     	
    

@@ -37,13 +37,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="navbar-header">
         <a class="navbar-brand" href="http://localhost:8080/NewsSys/">新闻中国</a>
     </div>
-    <div>
     
-
+    <form class="form-inline navbar-left" role="form" action="util/news?opr=search" method="post"  style="margin-top: 8px;;">
+  	<div class="form-group">
+    <label class="sr-only" for="name">关键字</label>
+    <input type="text" class="form-control" id="name" placeholder="请输入关键字搜索新闻" name="keyname">
+  </div>
+  <button type="submit" class="btn btn-default">Search</button>
+	</form>
+    
+    <div>
+    	<c:choose>
+      	<c:when test="${not empty sessionScope.user.uname}">
       		<div>
-        		<p class="navbar-text navbar-right">欢迎&nbsp;&nbsp;<span>${user.uname}</span>&nbsp;&nbsp;登录本网站&nbsp;&nbsp;<a href="util/user?opr=logout">退出账号</a>&nbsp;&nbsp;</p>
+        		<p class="navbar-text navbar-right">欢迎&nbsp;&nbsp;<span>${sessionScope.user.uname}</span>&nbsp;&nbsp;登录本网站&nbsp;&nbsp;<a href="util/user?opr=logout">退出账号</a>&nbsp;&nbsp;</p>
     		</div>
-
+      	
+      	
+      	</c:when>
+      	
+      	<c:otherwise>
+    
+        <form class="navbar-form navbar-right" role="search" action="util/user" method="post" >
+        <input type="hidden" name="opr" value="login"/>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="用户名" name="uname" id="uname">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="密码" name="upwd" id="upwd">
+            </div>
+            <button type="submit" class="btn btn-default">登录</button>&#160;&#160;
+            <a href="#" data-toggle="modal" data-target="#myModal">注册账号</a>
+        </form>
+		</c:otherwise>
+</c:choose>
     </div>
     </div>
 </nav> 

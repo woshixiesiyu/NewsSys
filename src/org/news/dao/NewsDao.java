@@ -14,6 +14,8 @@ public interface NewsDao {
     public List<News> getAllnewsByTID(int Tid) throws SQLException;
     // 获取某主题下的所有新闻（根据主题名称）
     public List<News> getAllnewsByTname(String tname) throws SQLException;
+    
+    public List<News> getAllnewsByKey(String Keyname) throws SQLException;
     // 获取某主题下的新闻数量
     public int getNewsCountByTID(int Tid) throws SQLException;
     // 获取某主题下的最新新闻

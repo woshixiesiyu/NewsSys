@@ -17,6 +17,9 @@ public interface NewsService {
     public List<News> findAllNewsByTid(int tid) throws SQLException;
     // 获取某主题下的所有新闻（根据主题名称）
     public List<News> findAllNewsByTname(String tname) throws SQLException;
+    
+    public List<News> findAllNewsByKey(String keyname) throws SQLException;
+    
     // 获取某主题下的最新新闻
     public List<News> findLatestNewsByTid(int tid, int limit) throws SQLException;
     // 初始化一组主题下的最新新闻
